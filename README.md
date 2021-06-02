@@ -1,46 +1,52 @@
-# Getting Started with Create React App
+# Typescript에서 redux를 사용하여 counter 만들기
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### 이 프로젝트는 [해당 수업](https://react.vlpt.us/using-typescript/05-ts-redux.html)을 실습한 것입니다. 
+---------------------------------------------------------------------------------------------
 
-## Available Scripts
+### 코드 설명
+#### 구현 하고자 한 기능
+  사용자가 +1,=1,+5의 버튼을 누르면 카운트의 숫자가 변하는 것을 구현하고자 했다. 
+  
+#### 구현을 위한 코드 작성
+  리덕스 모듈과 Ducks 패턴을 이용하였고 코드는 크게  컴포넌트와 컨테이너 컴포넌트, redux store로 이루어지며 컨테이너 컴포넌트에서 액션을 디스패치시 리덕스 스토어에서 보내준 스토어 상태를 프리젠테이셔널 컴포넌트에 보내줘 사용자 화면에 나오는 구성하였습니다. 
 
-In the project directory, you can run:
++ 프레젠테이셔널 컴포넌트 : Counter
++ 컨테이너 컴포넌트 : CounterContainer
++ 리덕스 스토어:  reduce module - counter, root reducer - rootReducer , 스토어 - store
+---------------------------------------------------------------------------------------------
 
-### `yarn start`
+### 수업 point
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```typescript
+const INCREASE = 'counter/INCREASE' as const; 
+const DECREASE = 'counter/DECREASE'as const;
+const INCREASE_BY = 'INCREASE_BY' as const ;
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+export const increase = ()=> ({type:INCREASE});
+export const decrease =()=>({type:DECREASE});
+export const increaseBy = (diff: number) => ({
+  type:INCREASE_BY,
+  payload:diff 
+});
 
-### `yarn test`
+export const increase = ()=> ({type:INCREASE});
+export const decrease =()=>({type:DECREASE});
+export const increaseBy = (diff: number) => ({ type:INCREASE_BY,payload:diff });
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+ type CounterAction = 
+  | ReturnType<typeof increase> // = {type : 'counter/INCREASER'} = {type : typeof INCREASE}
+  | ReturnType<typeof decrease> 
+  | ReturnType<typeof increaseBy>  
+```
 
-### `yarn build`
+#### 1. as const 
+ 
+ as const 를 사용하면 객체의 값을 객체의 타입으로 설정할 수 있다. 
+ 즉, INCREASE 의 type 은 counter/INCREASE가 된다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### 2. ReturnType <typeof >
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+ ReturnType <typeof ★ > 을 사용하면 ★의 결과값의 타입을 가져올 수 있다. 
+ 'ReturnType<typeof increase>' 대신에  '{type : 'counter/INCREASER'}' 이나 '{type : typeof INCREASE}' 을 사용할 수있으나 ReturnType를 사용한 이유는 
+ type : 'counter/INCREASER'}는 앞에서 작성한 counter/INCREAER 를 또 작성해야 하기 때문에 코드의 간결성면에서는 좋지 않기 때문이다. 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
