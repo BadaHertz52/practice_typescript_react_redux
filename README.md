@@ -1,4 +1,4 @@
-# Typescript에서 redux를 사용하여 counter 만들기
+# 1. Typescript에서 redux를 사용하여 counter 만들기
 
 #### 이 프로젝트는 [해당 수업](https://react.vlpt.us/using-typescript/05-ts-redux.html)을 실습한 것입니다. 
 ---------------------------------------------------------------------------------------------
