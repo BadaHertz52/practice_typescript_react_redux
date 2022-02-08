@@ -40,9 +40,7 @@ export const increaseBy = (diff: number) => ({
   payload:diff 
 });
 
-export const increase = ()=> ({type:INCREASE});
-export const decrease =()=>({type:DECREASE});
-export const increaseBy = (diff: number) => ({ type:INCREASE_BY,payload:diff });
+
 
  type CounterAction = 
   | ReturnType<typeof increase> // = {type : 'counter/INCREASER'} = {type : typeof INCREASE}
