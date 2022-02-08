@@ -2,7 +2,7 @@
   "name": "typescript",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://badahertz52.github.io/practice_ts_redux-thunk/",
+  "homepage": "https://badahertz52.github.io/practice_ts_redux-thunk",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
