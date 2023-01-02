@@ -59,3 +59,30 @@ export const increaseBy = (diff: number) => ({
  'ReturnType<typeof increase>' 대신에  '{type : 'counter/INCREASER'}' 이나 '{type : typeof INCREASE}' 을 사용할 수있으나 ReturnType를 사용한 이유는 
  type : 'counter/INCREASER'}는 앞에서 작성한 counter/INCREAER 를 또 작성해야 하기 때문에 코드의 간결성면에서는 좋지 않기 때문이다. 
 
+#### 3. useSelector 최적화 
+
+하나의 파일에서 서로 다른 state를 rootState에서 불러와야 한다면 다음과 같은 코드를 사용할 수 있다.
+```typescript
+function CounterContainer ( ){
+ const {counter, todo } = useSelector( (state:RooteState) => ({
+  count:state.counter.count ,
+	todos :state.todos
+  })); 
+
+```
+그러나 위 코드의 문제점은 counter 와 todos 둘 중 하나만 변경되었을 때, 변경 되지 않은 다른 state도 리렌더링 된다는 문제가 발생한다.
+이를 해결하는 방법으로는 따로 불러오는 방법(최적화 방법1)과 shallowEqual 를 사용하는 방법(치적화 방법2)가 있다
+
+* 최적화 방법1
+```typescript
+const counte = useSelector(state => state.counter.count);
+ const todos = useSelector (state => state.todos);
+```
+* 최적화 방법2
+```typescript
+function CounterContainer ( ){
+ const {counte, todo } = useSelector( state => ({
+  counter:state.counter.count ,
+	todos:state.todos
+  }), shallowEqual); 
+```
